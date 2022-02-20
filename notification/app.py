@@ -2,10 +2,11 @@ import os
 
 from flask import request
 
-from services import AuthorService, ReporterService
+from services import AuthorService, ReporterService, NotificationService
 from init import app, redis, db
 
 
+# ----- CRUD -----
 @app.route("/")
 def hello():
     redis.incr("notification_hits")
@@ -46,6 +47,31 @@ def get_reporters():
 def get_reporter(id):
     service = ReporterService()
     return service.get(id)
+
+
+# ----- CRUD -----
+
+
+# ----- Action -----
+@app.route("/eloqua_register", methods=["POST"])
+def eloqua_register():
+    service = NotificationService()
+    return service.eloqua_register(request.json)
+
+
+@app.route("/sm_register", methods=["POST"])
+def sm_register():
+    service = NotificationService()
+    return service.sm_register(request.json)
+
+
+@app.route("/notify_reporters", methods=["GET"])
+def notify_reporters():
+    service = NotificationService()
+    return service.notify_reporters()
+
+
+# ----- Action -----
 
 
 if __name__ == "__main__":
