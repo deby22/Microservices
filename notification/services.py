@@ -10,7 +10,7 @@ from schemas import person_schema, persons_schema
 
 class AuthorService:
     def create(self, data):
-        author = Author(data)
+        author = Author(**data)
         db.session.add(author)
         db.session.commit()
         return person_schema.jsonify(author)
@@ -26,7 +26,7 @@ class AuthorService:
 
 class ReporterService:
     def create(self, data):
-        reporter = Reporter(data)
+        reporter = Reporter(**data)
         db.session.add(reporter)
         db.session.commit()
         return person_schema.jsonify(reporter)

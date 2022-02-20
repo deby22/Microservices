@@ -1,6 +1,8 @@
 version: '3.8'
 services:
     articles:
+        container_name:
+            articles
         build: ./articles/
         volumes:
             - ./articles/:/usr/src/app/
@@ -10,6 +12,8 @@ services:
             PORT: 5001
             FLASK_DEBUG: 1
     notification:
+        container_name:
+            notification
         build: ./notification/
         volumes:
             - ./notification/:/usr/src/app/

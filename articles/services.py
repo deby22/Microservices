@@ -7,7 +7,7 @@ from schemas import article_schema, articles_schema
 
 class ArticleService:
     def create(self, data):
-        article = Article(data)
+        article = Article(**data)
         db.session.add(article)
         db.session.commit()
         return article_schema.jsonify(article)
