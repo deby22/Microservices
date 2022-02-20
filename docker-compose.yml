@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+    articles:
+        build: ./articles/
+        volumes:
+            - ./articles/:/usr/src/app/
+        ports:
+            - 5001:5001
+        environment:
+            PORT: 5001
+            FLASK_DEBUG: 1
+    notification:
+        build: ./notification/
+        volumes:
+            - ./notification/:/usr/src/app/
+        ports:
+            - 5002:5002
+        environment:
+            PORT: 5002
+            FLASK_DEBUG: 1
+    redis:
+        image: "redis:alpine"
