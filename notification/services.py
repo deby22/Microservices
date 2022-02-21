@@ -20,8 +20,8 @@ class AuthorService:
         return jsonify(persons_schema.dump(articles))
 
     def get(self, id):
-        authors = Author.query.get_or_404(id)
-        return person_schema.jsonify(authors)
+        author = Author.query.get_or_404(id)
+        return person_schema.jsonify(author)
 
 
 class ReporterService:
@@ -44,14 +44,25 @@ class NotificationService:
     def eloqua_register(self, content):
         rand = round(random.uniform(0, 1), 2)
         time.sleep(rand)
+        author_service = AuthorService()
+        author = author_service.get(content["author"])
+        content["author"] = author
+        print(f"Eloqua register with data: {content}")
         return f"sm_register after: {rand} sec"
 
     def sm_register(self, content):
         rand = round(random.uniform(0, 1), 2)
         time.sleep(rand)
+        author_service = AuthorService()
+        author = author_service.get(content["author"])
+        content["author"] = author
+        print(f"Sales Manago register with data: {content}")
         return f"sm_register after {rand} sec"
 
     def notify_reporters(self):
         rand = round(random.uniform(0, 1), 2)
         time.sleep(rand)
+        reporter_service = ReporterService()
+        reporters = reporter_service.get_list()
+        print(f"Send email to reporters: {reporters}")
         return f"notify_reporters after {rand} sec"

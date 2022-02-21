@@ -4,3 +4,4 @@ SQLAlchemy
 flask-marshmallow
 redis
 requests
+pika
